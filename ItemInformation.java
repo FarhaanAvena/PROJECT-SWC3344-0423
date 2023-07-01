@@ -1,4 +1,4 @@
-// ItemInformation class
+
 class ItemInformation {
 
     private String itemId; // Item ID
