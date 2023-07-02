@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=NotepadFileTransformer
-comment1.params=args
-comment1.target=void\ main(java.lang.String[])
-comment2.params=inputFilePath\ outputFilePath
-comment2.target=void\ transformNotepadFile(java.lang.String,\ java.lang.String)
-numComments=3

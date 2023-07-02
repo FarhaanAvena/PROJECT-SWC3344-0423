@@ -1,53 +1,86 @@
-import java.util.LinkedList;
+import java.text.DecimalFormat;
+import java.util.*;
 
-// CustomerInformation class
-class CustomerInformation {
-    private String custId; // Customer ID
-    private String custIC; // Customer IC number
-    private int counterPaid; // Counter number where  customer made payment
-    private LinkedList<ItemInformation> itemsPurchased; // List of items purchased by  customer
+public class CustomerInformation {
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
-    // Constructor with parameter
-    public CustomerInformation(String custId, String custIC, int counterPaid) {
-        this.custId = custId; 
-        this.custIC = custIC; 
-        this.counterPaid = counterPaid; 
-        this.itemsPurchased = new LinkedList<>(); 
+    private String custId;
+    private String custIC;
+    private int counterPaid;
+    private LinkedList<ItemInformation> itemList;
+
+    CustomerInformation(String id, String ic, int paid) {
+        custId = id;
+        custIC = ic;
+        counterPaid = paid;
+        this.itemList = new LinkedList<>();
     }
 
-    // Get customer ID
-    public String getCustId() {
-        return custId; // Return  customer ID
-    }
-
-    // Get customer IC number
+    // Accessor
     public String getCustIC() {
-        return custIC; // Return  customer IC number
+        return custIC;
     }
 
-    // Get counter number where  customer made payment
+    public String getCustId() {
+        return custId;
+    }
+
     public int getCounterPaid() {
-        return counterPaid; // Return  counter number where  customer made payment
+        return counterPaid;
     }
 
-    // Set counter number where  customer made payment
-    public void setCounterPaid(int counterPaid) {
-        this.counterPaid = counterPaid; // Set  counterPaid variable to  provided counter number
+    public double totalPrice() {
+        double total = 0;
+        for (ItemInformation items : itemList) {
+            total = total + items.getItemPrice();
+        }
+        return total;
     }
 
-    // Get linked list of items purchased by  customer
-    public LinkedList<ItemInformation> getItemsPurchased() {
-        return itemsPurchased; // Return  linked list of items purchased by  customer
+    public int getItemQuantity() {
+        return itemList.size();
     }
 
-    // Add an item to  list of items purchased
-    public void addItemPurchased(ItemInformation item) {
-        itemsPurchased.add(item); // Add  provided item to  list of items purchased
+    // Mutator
+    public void addItem(List<ItemInformation> items) {
+        itemList.addAll(items);
     }
 
-    // toString() method
+    public void setCounterPaid(int counter) {
+        counterPaid = counter;
+    }
+
+    public void purchaseItem(ItemInformation item) {
+        itemList.add(item);
+    }
+
+    public void removePurchasedItem(ItemInformation item) {
+        itemList.remove(item);
+    }
+
+    // method to display purchased items
+    public String displayPurchasedItems() {
+        ItemInformation item;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n+==========+=========+================+============+==============+\n");
+        sb.append("|Item No.  | Item ID |   Item Name    | Item Price |     Date     |\n");
+        sb.append("+==========+=========+================+============+==============+\n");
+
+        for (int i = 0; i < itemList.size(); i++) {
+            item = itemList.get(i);
+            sb.append(String.format("| %-8s | %-7s | %-14s | %10.2f | %12s |%n", (i + 1), item.getItemId(),
+                    item.getItemName(), item.getItemPrice(), item.getDatePurchase()));
+        }
+
+        sb.append("+==========+=========+================+============+==============+\n");
+
+        return sb.toString();
+    }
+
+    // toString
     public String toString() {
-        return "Customer ID: " + custId + ", IC: " + custIC + ", Counter Paid: " + counterPaid; 
-        // toString for customer ID, IC number, and counter number where payment was made
+        return ("ID: " + custId + "\nIC: " + custIC + "\nCounter Paid: " + counterPaid + "\nQuantity: "
+                + getItemQuantity() + displayPurchasedItems() + "Total : " + "RM: " + decimalFormat.format(totalPrice()) + "\n");
     }
 }

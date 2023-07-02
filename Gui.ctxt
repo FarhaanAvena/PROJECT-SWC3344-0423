@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Gui
+comment1.params=customerList\ qCounter1\ qCounter2\ qCounter3\ totalCustomer\ completedStack
+comment1.target=Gui(java.util.LinkedList,\ Queue,\ Queue,\ Queue,\ int,\ java.util.Stack)
+comment2.params=e
+comment2.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment3.params=args
+comment3.target=void\ main(java.lang.String[])
+numComments=4
